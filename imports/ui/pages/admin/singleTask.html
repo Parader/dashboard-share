@@ -1,0 +1,53 @@
+<template name='singleTask'>
+    <div class="singleTaskContainer">
+        <h2><a href='/admin/project/{{project._id}}'>{{project.title}}</a> {{> arrowRight}} <a href='/admin/project/{{project._id}}/tool/{{tool._id}}'>{{tool.title}}</a> {{> arrowRight}} Task</h2>
+        <div class="box taskInfo">
+            <span class='created'>Created: {{makeSmallDate task.created}}</span>
+            <span class='important'>{{#if task.content.important}}Important{{else}}Not important{{/if}}</span>
+            <h3 class='question'>{{task.content.text}}</h3>
+            <div class="imageContainer">
+                <img src='{{task.content.image.fileUrl}}' />
+            </div>
+            <ul class='choiceList'>
+                {{#each task.content.choices}}
+                    <li>{{index}} - {{choice}}
+                        <div class="imageContainer">
+                            <img src='{{image.fileUrl}}' />
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+            <h3>Answer type : {{task.type}}</h3>
+            <h3>By {{task.answeredBy}} : {{#each user in task.users}}{{getUserName user}},{{/each}}</h3>
+        </div>
+        <h2>Answer(s)</h2>
+        <div class="box taskAnswers">
+            <ul class='customList'>
+                {{#each answers}}
+                    <li>
+                        <div class="date">{{makeDate date}}</div>
+                        <div class="user">User: {{makeName user}}</div>
+
+                        <div class="answers">
+                            Answer:
+                            {{#if typeIs "Text"}}
+                                {{text}}
+                            {{/if}}
+                            {{#if typeIs "Choice"}}
+                                {{getChoices}}
+                            {{/if}}
+                            {{#if typeIs "Selection"}}
+                                {{getChoices}}
+                            {{/if}}
+                            {{#if typeIs "Upload"}}
+                                {{#each uploads}}
+                                    <div class="upload"><a href="{{fileUrl}}" target='_blank'>{{name}}</a></div>
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

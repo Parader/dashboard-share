@@ -1,0 +1,24 @@
+{
+  "name": "dash",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.3.5",
+    "babel-runtime": "^6.18.0",
+    "bcrypt": "^0.8.7",
+    "meteor-node-stubs": "~0.2.0",
+    "rucksack-css": "^0.8.6"
+  },
+  "postcss": {
+    "plugins": {
+      "rucksack-css": {},
+      "autoprefixer": {
+        "browsers": [
+          "last 2 versions"
+        ]
+      }
+    }
+  }
+}

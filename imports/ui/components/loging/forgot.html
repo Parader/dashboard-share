@@ -1,0 +1,22 @@
+<template name='forgotForm'>
+    <h1>Password recovery</h1>
+
+    <form class='forgotForm'>
+
+        <div class="messageContainer fadeFx transitions">
+            {{#if hasError}}
+            <span class='loginError errorMessage'>Something went wrong.</span>
+            {{/if}}
+            {{#if success}}
+            <span class='loginSuccess successMessage'>We will contact you as soon as possible.</span>
+            {{/if}}
+        </div>
+
+        <div class="input-field">
+            <input type="text" id='email' name='email' class='email validate' autoComplete='off' placeholder='Email' autofocus>
+        </div>
+
+        <button type="submit" class='loginButton btn' ><span>Send email {{> arrowRight}}</span></button>
+        <p class="lostPassword"><a href='/login' data-page='login'>Back to sign in</a></p>
+    </form>
+</template>

@@ -1,0 +1,37 @@
+<template name='tasks'>
+	<div class="tasksContainer">
+		{{#if thereIsTask}}
+			{{#each importantTasks}}
+				<div class="task" data-id='{{_id}}'>
+			        <div class="header">
+			        	{{#if pageGlobal}}
+			            	{{taskProject projectID}}'s Task
+						{{else}}
+							Task
+			           	{{/if}}
+			            <span>{{index @index "important"}} of {{countTask}}</span>
+			        </div>
+					{{> task}}
+				</div>
+			{{/each}}
+			{{#each tasks}}
+				<div class="task" data-id='{{_id}}'>
+			        <div class="header">
+			            {{#if pageGlobal}}
+			            	{{taskProject projectID}}'s Task
+						{{else}}
+							Task
+			           	{{/if}}
+			            <span>{{index @index ""}} of {{countTask}}</span>
+			        </div>
+					{{> task}}
+				</div>
+			{{/each}}
+		{{else}}
+            <div class="nothing">
+                <h2>You have no task to answer here at the moment.</h2>
+                <h2>Thank you for making sure the project moves forward.</h2>
+            </div>
+        {{/if}}
+	</div>
+</template>

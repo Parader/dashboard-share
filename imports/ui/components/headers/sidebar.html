@@ -1,0 +1,26 @@
+<template name='sidebar'>
+    <div class="sidebar side-nav fixed" id='slide-out'>
+        <div class="sidebarContainer">
+            <div class="logoContainer">
+                {{> logo}}
+                <p>Client dashboard beta</p>
+            </div>
+            <nav class='mainMenu'>
+                <ul>
+                    <li class='{{isActiveRoute "tasks"}}'><a href="/tasks/all-projects" data-page='tasks'>{{> taskIcon}} Tasks <span>({{countTask}})</span></a></li>
+                    <li class='{{isActiveRoute "approvals"}}'><a href="/approvals/all-projects" data-page='approvals'>{{> approvalIcon}} Approval <span>({{countApproval}})</span></a></li>
+                    <!-- <li class='{{isActiveRoute "progress"}}'><a href="/progress">Progress</a></li> -->
+                    <li class='{{isActiveRoute "deposit-box"}}'><a href="/deposit-box/{{firstProject._id}}" data-page='deposit-box'>{{> depositIcon}} Deposit box</a></li>
+                    <li class='{{isActiveRoute "documentation"}}'><a href="/documentation/{{firstProject._id}}" data-page='documentation'>{{> docsIcon}} Documentation</a></li>
+                    <li class='{{isActiveRoute "journal"}}'><a href="/journal" data-page='journal'>{{> journalIcon}} Journal</a></li>
+                </ul>
+            </nav>
+            <nav class='subMenu'>
+                <ul>
+                    <li class='{{isActiveRoute "settings"}}'><a href="/settings">SETTINGS</a></li>
+                    <li>{{> logout}}</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</template>

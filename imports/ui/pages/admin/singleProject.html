@@ -1,0 +1,248 @@
+<template name='singleProject'>
+    <div class="singleProjectContainer">
+
+        <!-- Project info -->
+        <h2>
+            {{project.title}}
+            {{#if state "editProject"}}
+                <button class='saveProject btnNormal'><i class="material-icons">done</i></button>
+                <button class='changeState btnNormal' data-state='editProject'><i class="material-icons">not_interested</i></button>
+            {{else}}
+                <button class='editProject changeState btnNormal' data-state='editProject'><i class="material-icons">mode_edit</i></button>
+            {{/if}}
+        </h2>
+        <div class="box projectContent">
+            <h3 class='info created'>Created : {{makeDate project.created}}</h3>
+            <h3 class='info status'>
+                Status :
+                {{#if state "editProject"}}
+                    <select id='projectStatus' class='browser-default col l2 m4 s6'>
+                        <option value='{{project.status}}'>{{project.status}}</option>
+                        <option value='In progress'>In progress</option>
+                        <option value='Waiting'>Waiting</option>
+                        <option value='Paused'>Paused</option>
+                        <option value='Completed'>Completed</option>
+                    </select>
+                {{else}}
+                    {{project.status}}
+                {{/if}}
+            </h3>
+            <h3 class='info desc'>
+                Description :
+                {{#if state "editProject"}}
+                    <textarea class='projectNewDesc'>{{project.description}}</textarea>
+                {{else}}
+                    {{project.description}}
+                {{/if}}
+            </h3>
+        </div>
+
+        <!-- Project Users -->
+        <h2>Project users <button class='changeState btnNormal' data-state='addUser'><i class="material-icons">add</i></button></h2>
+        <div class="box projectUsers">
+            <ul class='customList'>
+                {{#if state "addUser"}}
+                    <li>
+                        <form class='addProjectUser'>
+                            <div class="input-field">
+                                <select class='userProjectSelect' name="users" id="users" multiple>
+                                    <option disabled>Select users</option>
+                                    {{#each users}}
+                                        {{> usersList}}
+                                    {{/each}}
+                                </select>
+                                <div class="decision">
+                                    <button class='changeState btnNormal' data-state='addUser'><i class="material-icons">not_interested</i></button>
+                                    <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                {{/if}}
+                {{#each projectUsers project}}
+                <li>
+                    <div class='user'>{{username}}</div>
+                    <div class='action'>
+                        <button class='removeUser btnNormal'><i class="material-icons">delete</i></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Project Tools -->
+        <h2>Tools <button class='changeState btnNormal' data-state='addTool'><i class="material-icons">add</i></button></h2>
+        <div class="box projectTools">
+            <ul class='customList'>
+                {{#if state "addTool"}}
+                    <li>
+                        <form class='createTool'>
+                            <div class='input-field'>
+                                <input type="text" id='title' name='title' autocomplete='off'>
+                                <label for='title'>Title</label>
+                            </div>
+                            <div class='input-field'>
+                                <input type="text" id='desc' name='description' autocomplete='off'>
+                                <label for='desc'>Description</label>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState btnNormal' data-state='addTool'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                    </li>
+                {{/if}}
+                {{#each tools}}
+                <li>
+                    <div class="date">Created : {{makeSmallDate created}}</div>
+                    <div class='content'><a href="/admin/project/{{project._id}}/tool/{{_id}}">{{title}}</a></div>
+
+                    <div class='action'>
+                        <button class='deleteTool btnNormal'><i class="material-icons">delete</i></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Project Accesses -->
+        <h2>Accesses <button class='changeState btnNormal' data-state='addAccess'><i class="material-icons">add</i></button></h2>
+        <div class="box projectAccesses">
+            <ul class='customList'>
+                {{#if state "addAccess"}}
+                    <li>
+                        <form class='createAccess'>
+                            <div class='input-field'>
+                                <input type="text" id='name' name='name' autocomplete='off'>
+                                <label for='name'>Name</label>
+                            </div>
+                            <div class='input-field'>
+                                <input type="text" id='username' name='username' autocomplete='off'>
+                                <label for='username'>Username</label>
+                            </div>
+                            <div class='input-field endForm'>
+                                <input type="text" id='password' name='password' autocomplete='off'>
+                                <label for='password'>Password</label>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState btnNormal' data-state='addAccess'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                    </li>
+                {{/if}}
+                {{#each access}}
+                <li>
+                    <div class="date">Created : {{makeSimpleDate created}}</div>
+                    <div class='content'>{{name}}</div>
+
+                    <div class="username">Username: {{username}}</div>
+                    <div class="password">
+                        <span class='togglePassw'><i class="material-icons">{{#if passwordVisible}}visibility_off{{else}}visibility{{/if}}</i></span>
+                        Password: {{#if passwordVisible}}{{makePassw password}}{{else}}**********{{/if}}
+                    </div>
+                    <div class='action'>
+                        <button class='deleteAccess btnNormal'><i class="material-icons">delete</i></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Project Documents -->
+        <h2>Documentation <button class='changeState btnNormal' data-state='addDoc'><i class="material-icons">add</i></button></h2>
+        <div class="box projectDocuments">
+            <ul class="customList">
+                {{#if state "addDoc"}}
+                    <li>
+                        <form class='addDoc'>
+                            <div class="input-field">
+                                <input type="text" name='docTitle' id='docTitle' autocomplete='off'>
+                                <label for='docTitle'>Title</label>
+                            </div>
+                            <div class="input-field">
+                                <p>File</p>
+                                <input type="file" name='docFile' id='docFile'>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState btnNormal' data-state='addDoc'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                        {{> uploading}}
+                    </li>
+                {{/if}}
+                {{#each docs}}
+                    <li>
+                        <div class="content">{{title}}</div>
+                        <div class="view"><a href="{{fileUrl}}" target='_blank'>View</a></div>
+                        <div class="download"><a href="{{fileUrl}}" download="true" target='_blank'>Download</a></div>
+                        <div class='action'>
+                            <button class='deleteDoc btnNormal'><i class="material-icons">delete</i></button>
+                        </div>
+                        <!-- {{#unless this.isUploaded}}
+                          {{> FS.UploadProgressBar}}
+                        {{/unless}} -->
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Project Report -->
+        <h2>Report <button class='changeState btnNormal' data-state='addReport'><i class="material-icons">add</i></button></h2>
+        <div class="box projectReports">
+            <ul class="customList">
+                {{#if state "addReport"}}
+                    <li>
+                        <form class='addReport'>
+                            <div class="input-field">
+                                <input type="text" name='reportTitle' id='reportTitle' autocomplete='off'>
+                                <label for='reportTitle'>Title</label>
+                            </div>
+                            <div class="input-field">
+                                <p>File</p>
+                                <input type="file" name='reportFile' id='reportFile'>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState btnNormal' data-state='addReport'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                        {{> uploading}}
+                    </li>
+                {{/if}}
+                {{#each reports}}
+                    <li>
+                        <div class="content">{{title}}</div>
+                        <div class="view"><a href="{{fileUrl}}" target='_blank'>View</a></div>
+                        <div class="download"><a href="{{fileUrl}}" download="true" target='_blank'>Download</a></div>
+                        <div class='action'>
+                            <button class='deleteReport btnNormal'><i class="material-icons">delete</i></button>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Project Deposit -->
+        <h2>Deposit</h2>
+        <div class="box projectDeposits">
+            <ul class="customList">
+                {{#each projectDeposit}}
+                    <li data-id='{{_id}}'>
+                        <div class="content">{{name}}</div>
+                        <div class="type">{{type}}</div>
+                        <div class="size">{{makeSize size}}Mb</div>
+                        <div class="view"><a href="{{fileUrl}}" target='_blank'>View</a></div>
+                        <div class="download"><a href="{{fileUrl}}" download="true" target='_blank'>Download</a></div>
+                        <div class='action'>
+                            <button class='deleteDeposit btnNormal'><i class="material-icons">delete</i></button>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+
+    </div>
+</template>

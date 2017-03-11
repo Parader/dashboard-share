@@ -1,0 +1,41 @@
+<template name='approvals'>
+
+    <div class="approvalsContainer">
+        {{#if thereIsApproval}}
+            {{#each importantApprovals}}
+                <div class="approval" data-id='{{_id}}'>
+                    <div class="header">
+                        {{#if pageGlobal}}
+                            {{approvalProject projectID}}'s Approval
+                        {{else}}
+                            Approval
+                        {{/if}}
+                        <span>{{index @index "important"}} of {{countApproval}}</span>
+                    </div>
+                    {{> approval}}
+                </div>
+            {{/each}}
+            {{#each approvals}}
+                <div class="approval" data-id='{{_id}}'>
+                    <div class="header">
+                        {{#if pageGlobal}}
+                            {{approvalProject projectID}}'s Approval
+                        {{else}}
+                            Approval
+                        {{/if}}
+                        <span>{{index @index ""}} of {{countApproval}}</span>
+                    </div>
+                    {{> approval}}
+                </div>
+            {{/each}}
+        {{else}}
+            <div class="nothing">
+                <h2>You have no approvals to give at the moment.</h2>
+                <h2>Thank you for making sure the project moves forward.</h2>
+            </div>
+        {{/if}}
+    </div>
+
+
+
+</template>

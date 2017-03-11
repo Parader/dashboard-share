@@ -1,0 +1,24 @@
+<template name='singleApproval'>
+    <div class="singleApprovalContainer">
+        <h2><a href='/admin/project/{{project._id}}'>{{project.title}}</a> {{> arrowRight}} <a href='/admin/project/{{project._id}}/tool/{{tool._id}}'>{{tool.title}}</a> {{> arrowRight}} Approval</h2>
+        <div class="box approvalInfo">
+            <span class='created'>Created: {{makeSmallDate approval.created}}</span>
+            <span class='important'>{{#if approval.content.important}}Important{{else}}Not important{{/if}}</span>
+
+            <div class="spacer">
+                <h3 class='approval'>{{approval.content.title}}</h3>
+                <h3>Type : {{approval.type}}</h3>
+                <div class="fileContainer">
+                    <a href="{{approval.content.file.fileUrl}}" target='_blank'>View</a>
+                    <a href="{{approval.content.file.fileUrl}}" download="true">Download</a>
+                </div>
+            </div>
+
+            <h3>By {{approval.answeredBy}} : {{#each user in approval.users}}{{getUserName user}},{{/each}}</h3>
+        </div>
+        <h2>Answer(s)</h2>
+        <div class="box approvalAnswers">
+
+        </div>
+    </div>
+</template>

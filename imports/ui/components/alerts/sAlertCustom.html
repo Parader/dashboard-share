@@ -1,0 +1,19 @@
+<template name="sAlertCustom">
+    <div class="custom-alert s-alert-box s-alert-is-effect s-alert-{{condition}} s-alert-{{position}} s-alert-effect-{{effect}} s-alert-show {{type}}" id="{{_id}}" style="{{boxPosition}}">
+        <div class="s-alert-box-inner">
+            <div class="alert-header">
+                <h5>{{sAlertTitle}}</h5>
+            </div>
+            <div class="alert-content">
+                {{message}}
+            </div>
+        </div>
+        <span class="s-alert-close"></span>
+        <div class="interaction">
+            <form>
+                <div class="yes"></div>
+                <div class="no"></div>
+            </form>
+        </div>
+    </div>
+</template>

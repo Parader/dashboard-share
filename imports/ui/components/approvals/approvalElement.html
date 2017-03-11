@@ -1,0 +1,76 @@
+<template name='approvalElement'>
+    <li class='singleApprovalItem'>
+
+        <div class="approbLeft col m7 s10">
+
+            <div class="head">
+                <h1>{{tool.title}}</h1>
+                <h2>
+                    {{content.title}}
+                    <span class="enlarge">
+                        <a href="{{item.content.file.fileUrl}}" target='_blank'>View in new tab</a>
+                    </span>
+                </h2>
+                <span class="date">{{makeSimpleDate created}}</span>
+            </div>
+
+            <div class="approvalContainer">
+                {{#if type "Image"}}<!-- Approval is Image -->
+                    <div class="approvalImageContainer imgLiquidFill">
+                        <a href="{{item.content.file.fileUrl}}" class='colorbox'><img src="{{item.content.file.fileUrl}}"></a>
+                    </div>
+                {{else}}
+                    {{#if type "Video"}}<!-- Approval is video -->
+                        <div class="aspect-ratio">
+                            <video controls>
+                                <source src='{{item.content.file.fileUrl}}' type='video/mp4'>
+                            </video>
+                        </div>
+                    {{else}}
+                        {{#if type "Text"}}<!-- Approval is Text -->
+                            <div class="textContainer">
+                                <a href="{{item.content.file.fileUrl}}" donwload='true' target='_blank'>
+                                    <button class='btnShadow'>Download {{item.content.title}}{{> arrowRight}}</button>
+                                </a>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+                {{#if type "Text"}}
+
+                {{else}}
+                    <div class="downloadTextContainer">
+                        <a href="{{item.content.file.fileUrl}}" download='true' target='_blank'>
+                            <button class='btnShadow'>Download {{> arrowRight}}</button>
+                        </a>
+                    </div>
+                {{/if}}
+                <div class="description">
+                    <p>{{content.description}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="approbRight col m5 s10">
+            <h1>What do you think of our work?</h1>
+            <div class="approbChoice">
+                <span class="accept"><button class='btnApprove btnApproval accept-{{_id}} {{#if approve}}active{{/if}}'>I approve.</button></span>
+                <span class='separation'>Or</span>
+                <span class='refuse'><button class='btnRefuse btnApproval refuse-{{_id}} {{#if refuse}}active{{/if}}'>I do not approve.</button></span>
+            </div>
+            <form class='approbForm'>
+                <div class="input-field">
+                  <textarea id="comment" name='comment' class="materialize-textarea"></textarea>
+                  <label for="comments" class='textareaLabel'>Got any comments?</label>
+                </div>
+                <div class="input-field terms">
+                    <input type="checkbox" name='terms' id='terms-{{_id}}' class='termsChange'>
+                    <label for='terms-{{_id}}'>I have read and I agree to your <a href="/terms-and-conditions" target='_blank'>Terms & Conditions.</a></label>
+                </div>
+                <span class="action"><button type='submit' class='sendApprobAnswer'>Send {{> arrowRight}}</button></span>
+            </form>
+
+        </div>
+    </li>
+</template>

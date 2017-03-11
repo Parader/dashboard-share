@@ -1,0 +1,129 @@
+<template name='deposit'>
+    <div class="depositContainer">
+
+        <div class="dropContainer block">
+            <h2>{{project}}'s deposit-box</h2>
+            <div class="dropArea {{#if dropping}}dragover{{/if}}">
+                <form>
+                    <div class="content">
+                        {{#if state 'initial'}}
+                        <p>Drop your files here</p>
+                        <p>Or</p>
+                        {{else}}
+                            {{#if state 'download'}}
+                                <p>Enjoy your drink while we download your files.</p>
+                            {{else}}
+                                {{#if state 'done' 'over'}}
+                                    <p class='bigger'>Done.</p>
+                                    <p>Thanks, we'll check those files<br />and get back to you soon.</p>
+                                {{else}}
+                                    <p class='bigger'>Hmmmmm :/</p>
+                                    <p>Something went wrong. That's embarassing.<br />Please try uploading again.</p>
+                                {{/if}}
+                            {{/if}}
+                        {{/if}}
+
+                        {{#if state 'initial' 'over'}}
+                            <div class="fileInput {{#if state 'over'}}extraMargin{{/if}}">
+                                <span>Upload files {{> arrowRight}}</span>
+                                <input type="file" name='fileInput' id='fileInput' multiple>
+                            </div>
+                        {{/if}}
+
+                        {{#if state 'download' 'done'}}
+                            {{> uploading}}
+                        {{/if}}
+
+
+                        <div class="currentUploadContainer">
+                            <ul>
+                                {{#each currentFiles}}
+                                    <li><span class='name'>{{name}}</span></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="historyContainer block">
+            <h2>Transfer history <span class='clearHistory'>Clear history</span></h2>
+            <table class='table-striped'>
+                <thead>
+                    <tr><th>Name</th><th align='right'>Size</th><th align='right'>Date</th></tr>
+                </thead>
+                <tbody>
+                    {{#each userDeposit}}
+                    <tr><td>{{name}}</td><td>{{makeSize size}}MB</td><td>{{makeSimpleDate created}}</td></tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</template>
+
+
+
+<!--<form>
+                <div class="dropFile dropzone {{#if dropping}}dropping{{/if}}" id='dropzone'>
+                     <div class="textError {{#if noError}}hidden{{/if}}">
+                        <h2>Hmmm :/</h2>
+                        <h3>Something went wrong. That's embarassing.<br />Please try uploading again.</h3>
+                        <div class="fileInput">
+                            <span>Retry upload {{> arrowRight}}</span>
+                            <input type="file" name='fichiers' id='fichiers' multiple>
+                        </div>
+                    </div> -->
+                    <!--
+                    <div class="textUpload {{#if noState}}hidden{{/if}}">
+                        <span class="textDownload {{#if isNotDownloading}}hidden{{/if}}">
+                            <h3>Enjoy your drink while we download your files.</h3>
+                        </span>
+                        <span class="textDone {{#if isDownloading}}hidden{{/if}}">
+                            <h2>Done.</h2>
+                            <h3>Thanks, we'll check those files<br />and get back to you soon.</h3>
+                        </span>
+                        <div class="progressBarContainer">
+                            <span class="progressValue">{{progressValue}}%</span>
+                            <progress class="mozBorder downloadBar" value="{{progressValue}}" max="100"></progress>
+                            <div class="fileInput">
+                                <span>Upload files {{> arrowRight}}</span>
+                                <input type="file" name='fichiers' id='fichiers' multiple>
+                            </div>
+                        </div>
+                        <div class="currentUploadContainer">
+                            <ul>
+                                {{#each currentFiles}}
+                                    <li><span class='name'>{{name}}</span>{{#if isStored}}<span class='size'>{{makeSize size}}MB</span>{{/if}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text {{#if noState}}active{{/if}}">
+                        <h3>Drop your files here</h3>
+                        <h4>Or</h4>
+                        <div class="fileInput">
+                            <span>Upload files {{> arrowRight}}</span>
+                            <input type="file" name='fichiers' id='fichiers' multiple>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>-->
+        <!-- <div class="historyContainer col s5">
+            <h2>Transfer history</h2>
+            <table class='table-striped'>
+                <thead>
+                    <tr><th>Name</th><th>Size</th><th>Date</th></tr>
+                </thead>
+                <tbody>
+                    {{#each projectFile}}
+                    <tr><td>{{title}}</td><td>{{makeSize size}}MB</td><td>{{makeSimpleDate date}}</td></tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div> -->

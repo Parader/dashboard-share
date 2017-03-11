@@ -1,0 +1,11 @@
+<template name='emptyLayout'>
+    <div class="wrapper {{data.wrapper}}">
+        <header class='loginHeader'>
+            <div class="logoContainer">
+                {{> logo}}
+                <p>Client dashboard beta</p>
+            </div>
+        </header>
+        {{> Template.dynamic template=page}}
+    </div>
+</template>

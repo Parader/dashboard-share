@@ -1,0 +1,11 @@
+<template name="progressBar">
+    <div class="progressBarContainer">
+        <span class="progressValue">{{progress}}%</span>
+        <!--{{> FS.UploadProgressBar class='mozBorder downloadBar'}}-->
+        <progress class="mozBorder downloadBar" value="{{progress}}" max="100"></progress>
+        <!-- <div class="fileInput">
+            <span>Upload files {{> arrowRight}}</span>
+            <input type="file" name='fichiers' id='fichiers' multiple>
+        </div> -->
+    </div>
+</template>

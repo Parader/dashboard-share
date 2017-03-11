@@ -1,0 +1,16 @@
+{
+    "public": {
+
+    },
+    "galaxy.meteor.com": {
+        "env": {
+            "ROOT_URL": "",
+            "MONGO_URL": ""
+        }
+    },
+    "private":{
+        "AWSAccessKeyId" : "",
+        "AWSSecretAccessKey" : "",
+        "AWSBucket" : ""
+    }
+}

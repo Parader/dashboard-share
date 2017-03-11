@@ -1,0 +1,43 @@
+<template name='manageUsers'>
+    <div class="manageUsersContainer">
+        <h2>Manage Users <button class='add btnNormal'><i class="material-icons">add</i></button></h2>
+        <div class="userList">
+            <div class="box">
+                <ul class='customList'>
+                {{#if stateAdd}}
+                    <li class='adder'>
+                        <span class="errorMessage usersManagement"></span>
+                        <span class='content'>
+                            <form class='addUser'>
+                                <div class="input-field">
+                                    <input type="text" name='email' id='email' autoComplete='off'>
+                                    <label for='email'>Email</label>
+                                </div>
+                                <div class="input-field endForm">
+                                    <input type="password" name='passw' id='passw' >
+                                    <label for='passw'>Password</label>
+                                </div>
+                                <div class="decision">
+                                    <button class='cancelAdd btnNormal'><i class="material-icons">not_interested</i></button>
+                                    <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                                </div>
+                            </form>
+                        </span>
+                    </li>
+                {{/if}}
+
+                {{#each user}}
+                    <li>
+                        <div class="date">Created : {{makeSmallDate createdAt}}</div>
+                        <div class='content {{roles}}'>{{username}}</div>
+                        <div class='action'>
+                            <button class='deleteUser btnNormal'><i class="material-icons">delete</i></button>
+                        </div>
+                    </li>
+                {{/each}}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</template>

@@ -1,0 +1,24 @@
+<template name='loginForm'>
+    <h1>Welcome to your dashboard</h1>
+
+    <form class='loginForm' autoComplete='off'>
+
+        <div class="messageContainer fadeFx transitions">
+            {{#if hasError}}
+                <span class='loginError errorMessage'>Verify your information.</span>
+            {{/if}}
+        </div>
+
+        <div class="input-field">
+            <input type="text" id='email' name='email' class='email validate' autoComplete='off' placeholder='Username' autofocus>
+            <!-- <label for='email'>Email address</label> -->
+        </div>
+        <div class="input-field">
+            <input class="passw validate" name='passw' id='pw' placeholder='Password' type="password">
+            <span class="lostPassword"><a href='/forgot-password' data-page='forgot-password'>I forgot my password</a></span>
+            <!-- <label for="pw">Password</label> -->
+        </div>
+
+        <button type="submit" class='loginButton btn' ><span>Sign in {{> arrowRight}}</span></button>
+    </form>
+</template>

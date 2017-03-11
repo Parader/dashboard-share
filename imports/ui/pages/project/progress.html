@@ -1,0 +1,43 @@
+<template name='progress'>
+    {{#transition}}
+    {{#if pageLoaded}}
+    <div class="progressContainer">
+        <ul class='toolList'>
+            {{#each tools}}
+                <li class='toolOverview row {{#if onlyOneTool}}borderRadius{{/if}}'>
+                    <div class="projectReport col s12 m12 l8">
+                        <h2 class='title'>{{title}} <span class="lastUpdated">Started on {{makeSimpleDate created}}</span></h2>
+                        <h3 class='subTitle'>Progress report</h3>
+                        <div class='progressBar'>
+                            <div class="completed" style='width:{{completedProgress}}%'></div>
+                            <span class="progression">{{completedProgress}}%</span>
+                        </div>
+                    </div>
+                    <div class="projectPhases col s12 m12 l4">
+                        <h3 class="subTitle">Project phases <span class="completion">{{countCompletedPhases}}/{{countPhases}}</span></h3>
+                        <div class="separation">
+                            <img src="/images/arrow_down.svg">
+                            <span class="viewStriped">{{#if viewCompleted}}Hide{{else}}View{{/if}} completed</span>
+                        </div>
+                        <ul class='phasesList'>
+                            {{#each steps}}
+                            <li class='singlePhase'>
+                                <span class='phase {{#if isDone}}striped{{/if}} {{#if noStade}}pale{{/if}}'>{{title}}</span>
+                                <span class="phaseStatus">{{getStatus}}</span>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="projectNotes col s12 m12 l8">
+                        <h4>Notes</h4>
+                        {{#each anotedSteps}}
+                            <p>{{title}} : {{note}}</p>
+                        {{/each}}
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/if}}
+    {{/transition}}
+</template>

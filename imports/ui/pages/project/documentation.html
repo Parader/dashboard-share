@@ -1,0 +1,66 @@
+<template name='documentation'>
+    <div class="documentationContainer">
+        <div class="documentsContainer block">
+            <h2>Documents {{#if thereIsDocs}}<span class='packageDownload'>Download package</span>{{/if}}</h2>
+        {{#if thereIsDocs}}
+                <table class='table-striped'>
+                    <thead>
+                        <tr><th>Name</th><th align='right'>Size</th><th align='right'>Date</th><th align='right'></th><th align='right'></th></tr>
+                    </thead>
+                    <tbody>
+                        {{#each documents}}
+                        <tr><td>{{title}}</td><td class='button'>{{makeSize size}}MB</td><td class='button'>{{makeSimpleDate created}}</td><td class='button'><a href="{{fileUrl}}" target='_blank'>View</a></td><td class='button'><a href="{{fileUrl}}" download='true'>Download</a></td></tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+        {{else}}
+            <div class="nothing">
+                <h2>We will share documents here.</h2>
+                <h2>As soon as we have some.</h2>
+            </div>
+        {{/if}}
+        </div>
+
+        <div class="reportsContainer block">
+            <h2>Reports {{#if thereIsReport}}<span class='packageDownload'>Download package</span>{{/if}}</h2>
+            {{#if thereIsReports}}
+                <table class='table-striped'>
+                    <thead>
+                        <tr><th>Name</th><th align='right'>Size</th><th align='right'>Date</th><th align='right'></th><th align='right'></th></tr>
+                    </thead>
+                    <tbody>
+                        {{#each reports}}
+                        <tr><td>{{title}}</td><td class='button'>{{makeSize size}}MB</td><td class='button'>{{makeSimpleDate uploadedAt}}</td><td class='button'><a href="{{fileUrl}}" target='_blank'>View</a></td><td class='button'><a href="{{fileUrl}}" download='true'>Download</a></td></tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+            {{else}}
+                <div class="nothing">
+                    <h2>It’s pretty empty here because we’re<br />still waiting to get the project started.</h2>
+                    <h2>We, too, can’t wait to see results!</h2>
+                </div>
+            {{/if}}
+        </div>
+
+        <!-- <div class="accessContainer col m6 s12">
+                <h2>Access</h2>
+                <ul>
+                    {{#each access}}
+                    <li>
+                        <h3 class="title">{{name}}</h3>
+                        <span class="username">Username: <span class='pale'>{{username}}</span></span>
+                        <span class='password'>Password: <span class='pale'>{{#if seePassword}}{{makePassw password}}{{else}}**********{{/if}}</span></span>
+                        <span class="action {{#if seePassword}}hidePass{{else}}viewPass{{/if}}">
+                            {{#if seePassword}}
+                                Hide
+                            {{else}}
+                                Show
+                            {{/if}}
+                        </span>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div> -->
+    </div>
+</template>

@@ -1,0 +1,79 @@
+<template name='manageProjects'>
+    <div class="manageProjectsContainer">
+        <h2>Manage Projects <button class='add btnNormal'><i class="material-icons">add</i></button></h2>
+        <div class="projectList">
+            <div class="box">
+                <ul class='customList'>
+                    {{#if stateAdd}}
+                        <li class='adder'>
+                            <span class="errorMessage projectsManagement"></span>
+                            <span class='content'>
+                                <form class='addProject'>
+                                    <div class='input-field'>
+                                        <input type="text" name='title' id='title'>
+                                        <label for='title'>Title</label>
+                                    </div>
+                                    <div class='input-field'>
+                                        <input type="text" name='desc' id='desc'>
+                                        <label for='desc'>Description</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select class='userSelect' name="users" id="users" multiple>
+                                            <option disabled>Select users</option>
+                                            {{#each users}}
+                                                {{> usersList}}
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <div class="decision">
+                                        <button class='cancelAdd btnNormal'><i class="material-icons">not_interested</i></button>
+                                        <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                                    </div>
+                                </form>
+                            </span>
+                        </li>
+                    {{/if}}
+                    {{#each projects}}
+                    <li>
+                        <div class="date">Created : {{makeSmallDate createdAt}}</div>
+                        <div class='content'><a class='projectLink' href="/admin/project/{{_id}}">{{title}}</a></div>
+                        <div class="status">{{status}}</div>
+                        <div class='action'>
+                            <button class='deleteProject btnNormal'><i class="material-icons">delete</i></button>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- <h2>Add project</h2>
+                <div class="box addProjectContainer">
+                    <form class='addProject'>
+                        <span class="errorMessage"></span>
+                        <div class='input-field'>
+                            <input type="text" name='title' id='title'>
+                            <label for='title'>Title</label>
+                        </div>
+                        <div class='input-field'>
+                            <input type="text" name='desc' id='desc'>
+                            <label for='desc'>Description</label>
+                        </div>
+                        <div class="input-field col s12">
+                                <select class='userSelect' name="users" id="users" multiple>
+                                    <option disabled>Select users</option>
+                                    {{#each users}}
+                                        {{> usersList}}
+                                    {{/each}}
+                                </select>
+                        </div>
+                        <div class="textRight">
+                            <button type='submit'>Add Project {{> arrowRight}}</button>
+                        </div>
+                    </form>
+                </div> -->
+
+
+    </div>
+</template>

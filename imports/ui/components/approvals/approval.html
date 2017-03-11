@@ -1,0 +1,71 @@
+<template name='approval'>
+
+    <div class="approval">
+        <div class="intro">
+            <div class="header">
+                <div class="part1">
+                    <div class="title">
+                        <h1>{{content.title}}</h1>
+                    </div>
+                    <div class="past">Pending since {{pending}}</div>
+                </div>
+                <div class="part2">
+                    {{#if content.important}}
+                        <div class="important"><i class='material-icons'>star</i><span>Important</span></div>
+                    {{/if}}
+                    <div class="downloadContainer">
+                        <a href="{{content.file.fileUrl}}">{{> downloadIcon}} Download file</a>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="leftSide">
+                    {{#if isType "Image"}}
+                    <div class="imgContainer colorbox" data-src='{{content.file.fileUrl}}'>
+                        <img src="{{content.file.fileUrl}}"  />
+                    </div>
+                    {{else}}
+                        {{#if isType "Video"}}
+                        <div class="videoContainer">
+                            <video controls>
+                                <source src="{{content.file.fileUrl}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        {{else}}
+                            {{#if isType "Text"}}
+                                <div class="textContainer">
+
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                </div>
+                <div class="rightSide">
+                    <p class='description'>{{content.description}}</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="question">
+            <p class='text'>What do you think of our work?</p>
+            <div class="choices">
+                <button class='positive toggler {{#if approve}}active{{/if}}' data-approvalId='{{_id}}'>I approve</button>
+                <span class='or'>Or</span>
+                <button class='negative toggler {{#if decline}}active{{/if}}' data-approvalId='{{_id}}'>I do not approve</button>
+            </div>
+            <form>
+                <div class="input-field comments">
+                    <textarea id="comments" class="materialize-textarea"></textarea>
+                    <label for="comments">Comments</label>
+                </div>
+                <div class="input-field terms">
+                    <input type="checkbox" name='terms' id='terms-{{_id}}' class='termsChange'>
+                    <label for='terms-{{_id}}'>I have read and I agree to your <a href="/terms-and-conditions" target='_blank'>Terms & Conditions.</a></label>
+                </div>
+                <button type='submit' class='answer btn btnShadow'><span>Send {{> arrowRight}}</span></button>
+            </form>
+        </div>
+    </div>
+
+</template>

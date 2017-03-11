@@ -1,0 +1,11 @@
+<template name='mainLayout'>
+    <div class="wrapper {{data.wrapper}}">
+        {{> sAlert template='sAlertCustom'}}
+        <a href="#" data-activates="slide-out" class="button-collapse menu-mobile"><i class="material-icons">menu</i></a>
+        {{> sidebar}}
+        {{> Template.dynamic template=header}}
+        <div class="content">
+        	{{> Template.dynamic template=page}}
+        </div>
+    </div>
+</template>

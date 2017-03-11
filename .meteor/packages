@@ -1,0 +1,67 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base@1.0.4             # Packages every Meteor app needs to have
+mobile-experience@1.0.4       # Packages for a great mobile UX
+mongo@1.1.14                   # The database Meteor supports right now
+blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
+reactive-var@1.0.11            # Reactive variable for tracker
+jquery@1.11.10                  # Helpful client-side library
+tracker@1.1.1                 # Meteor's client-side reactive programming library
+
+#standard-minifier-css@1.2.0   # CSS minifier run for production mode
+standard-minifier-js@1.2.1    # JS minifier run for production mode
+es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.6.1              # Enable ECMAScript2015+ syntax in app code
+shell-server@0.2.1            # Server-side component of the `meteor shell` command
+
+mdg:validated-method
+tunifight:loggedin-mixin
+reactive-dict@1.1.8
+kadira:flow-router
+kadira:blaze-layout
+accounts-password@1.3.3
+accounts-base@1.2.14
+gwendall:accounts-helpers
+meteortoys:allthings
+materialscript
+imgliquid
+fourseven:scss
+random@1.0.10
+check@1.2.4
+email@1.1.18
+juliancwirko:postcss
+aldeed:collection2
+aldeed:simple-schema
+alanning:roles
+momentjs:moment
+fastclick@1.0.13
+jparker:crypto-base64
+edgee:slingshot
+peerlibrary:aws-sdk
+rubaxa:sortable
+postrednik:meteor-rangeslider
+transition-helper
+mrt:jquery-ui
+underscore@1.0.10
+raix:ui-dropped-event
+gsap
+zhenya:moment-precise-range
+juliancwirko:s-alert
+juliancwirko:s-alert-stackslide
+aliencorp:colorbox
+
+
+#gwendall:auth-client-callbacks
+#raix:handlebar-helpers
+#aldeed:autoform
+#accounts-ui-unstyled
+#zimme:active-route
+#london:body-class
+#nolimits4web:swiper
+#maazalik:malihu-jquery-custom-scrollbar
+#hipstersmoothie:scrollmagic
+#datariot:ganalytics

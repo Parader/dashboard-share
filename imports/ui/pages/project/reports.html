@@ -1,0 +1,24 @@
+<template name='reports'>
+    {{#transition}}
+    {{#if pageLoaded}}
+    <div class="reportsContainer">
+        {{#if thereIsReport}}
+            <ul>
+                {{#each reports}}
+                <li>
+                    <h2 class="title">{{title}}</h2>
+                    <span class="action"><a href="{{fileUrl}}" target='_blank'>View</a><a href="{{fileUrl}}" download='true' target='_blank'>Download</a></span>
+                    <span class="date">Uploaded {{makeSimpleDate uploadedAt}}</span>
+                </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <div class="nothing">
+                <h2>It’s pretty empty here because we’re<br />still waiting to get the project started.</h2>
+                <h2>We, too, can’t wait to see results!</h2>
+            </div>
+        {{/if}}
+    </div>
+    {{/if}}
+    {{/transition}}
+</template>

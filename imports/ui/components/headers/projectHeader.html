@@ -1,0 +1,21 @@
+<template name='projectHeader'>
+    <div class="projectHeader">
+        <div class="headerContainer">
+            <div class="title">
+                <p>Select a project</p>
+            </div>
+            <ul>
+                {{#if pageGlobal}}
+                <li class='{{#if isActive "all"}}active{{/if}}'>
+                    <a href="/{{page}}/all-projects"><button class='btn'><span>All projects</span></button></a>
+                </li>
+                {{/if}}
+                {{#each projects}}
+                    <li class='{{#if isActive _id}}active{{/if}}'>
+                        <a href="/{{page}}/{{_id}}"><button class='btn'><span>{{title}}</span></button></a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

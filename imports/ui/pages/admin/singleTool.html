@@ -1,0 +1,251 @@
+<template name='singleTool'>
+    <div class="singleToolContainer">
+        <!-- Tool info -->
+        <h2>
+            <a href='/admin/project/{{project._id}}'>{{project.title}}</a> {{> arrowRight}} {{tool.title}}
+            {{#if state "editTool"}}
+                <button class='saveTool btnNormal'><i class="material-icons">done</i></button>
+                <button class='changeState btnNormal' data-state='editTool'><i class="material-icons">not_interested</i></button>
+            {{else}}
+                <button class='editProject changeState btnNormal' data-state='editTool'><i class="material-icons">mode_edit</i></button>
+            {{/if}}
+        </h2>
+        <div class="box projectContent">
+            <h3 class='info created'>Created : {{makeDate tool.created}}</h3>
+            <h3 class='info desc'>
+                Description :
+                {{#if state "editTool"}}
+                    <textarea class='toolNewDesc'>{{tool.description}}</textarea>
+                {{else}}
+                    {{tool.description}}
+                {{/if}}
+            </h3>
+        </div>
+
+        <!-- Tool Steps -->
+        <h2>Steps <span class="phaseProgressList">{{completedProgress}}% | {{totalProgress}}%</span> <button class='changeState btnNormal' data-state='addStep'><i class="material-icons">add</i></button></h2>
+        <div class="box toolSteps">
+            <ul class='customList'>
+                {{#if state "addStep"}}
+                    <li>
+                        <form class='addStep'>
+                            <div class="input-field">
+                                <input type="text" name='title' id='title' autocomplete='off'>
+                                <label for='title'>Title</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="rangeslide" name='progress'/>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState btnNormal' data-state='addStep'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                    </li>
+                {{/if}}
+                {{#sortable items=steps sortField="ord" handle='.sortable-handle'}}
+                <li>
+                    {{#if state _id}}
+                        <form class='editStep'>
+                            <div class='content'>
+                                <div class="input-field ">
+                                    <input type="text" name='title' id='title' value='{{title}}' autocomplete='off'>
+                                </div>
+                            </div>
+                            <div class="valeur">Progress value:
+                                <input type="number" value='{{progressValue}}' name='progress' />
+                            </div>
+                            <div class="status">Status: {{status}}
+                                <select id='status' name='status' class='browser-default'>
+                                    <option value=''>None</option>
+                                    <option value='In progress'>In progress</option>
+                                    <option value='Waiting'>Waiting</option>
+                                    <option value='On hold'>On hold</option>
+                                    <option value='Completed'>Completed</option>
+                                </select>
+                            </div>
+                            <div class="note">Notes:
+                                <textarea name='note'>{{note}}</textarea>
+                            </div>
+                            <div class='action'>
+                                <button type='submit' class='btnNormal'><i class="material-icons">done</i></button>
+                                <button class='changeState btnNormal' data-state='{{_id}}'><i class="material-icons">not_interested</i></button>
+                            </div>
+                        </form>
+                    {{else}}
+                        <div class='content'>{{title}}</div>
+                        <div class="valeur">Progress value: {{progressValue}}%</div>
+                        <div class="status">Status: {{status}}</div>
+                        <div class="note">Note: {{note}}</div>
+                        <div class='action'>
+                            <button class='changeState btnNormal' data-state='{{_id}}'><i class="material-icons">mode_edit</i></button>
+                            <button class='deleteStep btnNormal'><i class="material-icons">delete</i></button>
+                        </div>
+                    {{/if}}
+                    <span class='sortable-handle'>::</span>
+                </li>
+                {{/sortable}}
+            </ul>
+        </div>
+
+
+        <!-- Tool tasks -->
+        <h2>Tasks <button class='changeState btnNormal' data-state='addTask'><i class="material-icons">add</i></button></h2>
+        <div class="box toolTasks">
+            <ul class='customList'>
+                {{#if state "addTask"}}
+                    <li>
+                        <form class='addTask'>
+                            <div class="input-field">
+                                <input type="text" name='text' id='text' />
+                                <label for="text">Text</label>
+                            </div>
+                            <div class="input-field">
+                                <p>Image</p>
+                                <input type="file" name='taskImage' id='taskImage'>
+                            </div>
+                            <div class="choicesContainer input-field">
+                                Choices: <button class='removeChoice btnNormal'><i class="material-icons">remove</i></button> <button class='appendChoice btnNormal'><i class="material-icons">add</i></button>
+                                <ul class='choiceList'>
+                                    {{#each index in choices}}
+                                        <li>
+                                            <span class='choiceIndex'></span>
+                                            <div class="input-field">
+                                                <input type="text" name='choice{{index}}' id='choice{{index}}' />
+                                                <label for="choice{{index}}">Choice {{index}}</label>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="file" name='choiceImage{{index}}' class='choiceImage' id='choiceImage{{index}}'>
+                                            </div>
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <div class="input-field">
+                                <p>Answer type:</p>
+                                <select id='type' name='type' class='browser-default'>
+                                    <option value='Text'>Text</option>
+                                    <option value='Choice'>Choice</option>
+                                    <option value='Selection'>Selection</option>
+                                    <option value='Upload'>Upload</option>
+                                    <option value='None'>None</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <p>By:</p>
+                                <p>
+                                    <input name="answerFrom" value='One of' type="radio" id="button1" checked />
+                                    <label for="button1">One of</label>
+                                </p>
+                                <p>
+                                    <input name="answerFrom" value='All' type="radio" id="button2" />
+                                    <label for="button2">All</label>
+                                </p>
+                            </div>
+                            <div class="input-field">
+                                <h3>Those users</h3>
+                                <select class='usersTask col s6' name="users" id="users" multiple>
+                                    <option disabled>Select users</option>
+                                    {{#each users}}
+                                        {{> usersList}}
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <input type="checkbox" name='important' id='important'>
+                                <label for='important'>Important</label>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState cancelAddTask btnNormal' data-state='addTask'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                    </li>
+                {{/if}}
+                {{#each task}}
+                <li>
+                    <div class='content'><a href="/admin/project/{{project._id}}/tool/{{tool._id}}/task/{{_id}}">{{content.text}}</a></div>
+                    <div class='type'>Answer : {{type}}</div>
+                    <div>Answered: {{isAnswered}}</div>
+                    <div class='action'>
+                        <button class='deleteTask btnNormal'><i class="material-icons">delete</i></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Tool approvals -->
+        <h2>Approvals <button class='changeState btnNormal' data-state='addApproval'><i class="material-icons">add</i></button></h2>
+        <div class="box toolTasks">
+            <ul class='customList'>
+                {{#if state "addApproval"}}
+                    <li>
+                        <form class='addApproval'>
+                            <div class="input-field">
+                                <input type="text" name='title' id='title' />
+                                <label for="title">Title</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" name='desc' id='desc' />
+                                <label for="desc">Description</label>
+                            </div>
+                            <div class="input-field">
+                                <p>File</p>
+                                <input type="file" name='approvalFile' id='approvalFile'>
+                            </div>
+                            <div class="input-field">
+                                <p>Media type:</p>
+                                <select id='type' name='type' class='browser-default'>
+                                    <option value='Image'>Image</option>
+                                    <option value='Text'>Text</option>
+                                    <option value='Video'>Video</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <p>By:</p>
+                                <p>
+                                    <input name="answerFromApproval" value='One of' type="radio" id="button3" checked />
+                                    <label for="button3">One of</label>
+                                </p>
+                                <p>
+                                    <input name="answerFromApproval" value='All' type="radio" id="button4" />
+                                    <label for="button4">All</label>
+                                </p>
+                            </div>
+                            <div class="input-field">
+                                <h3>Those users</h3>
+                                <select class='usersApproval col s6' name="users" id="usersApproval" multiple>
+                                    <option disabled>Select users</option>
+                                    {{#each users}}
+                                        {{> usersList}}
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <input type="checkbox" name='important' id='importantApproval'>
+                                <label for='importantApproval'>Important</label>
+                            </div>
+                            <div class="decision">
+                                <button class='changeState btnNormal' data-state='addApproval'><i class="material-icons">not_interested</i></button>
+                                <button type='submit' class='confirmAdd btnNormal'><i class="material-icons">done</i></button>
+                            </div>
+                        </form>
+                    </li>
+                {{/if}}
+                {{#each approval}}
+                <li>
+                    <div class='content'><a href="/admin/project/{{project._id}}/tool/{{tool._id}}/approval/{{_id}}">{{content.title}}</a></div>
+                    <div class='type'>Answer : {{type}}</div>
+                    <div class='action'>
+                        <button class='deleteApproval btnNormal'><i class="material-icons">delete</i></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+
+
+    </div>
+</template>

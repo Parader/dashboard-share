@@ -1,0 +1,101 @@
+<template name='task'>
+
+    <div class="question">
+        <div class="tags">
+            {{#if content.important}}
+                <div class="important"><i class='material-icons'>star</i><span>Important</span></div>
+            {{/if}}
+            <div class="past {{#if content.important}}{{else}}left{{/if}}">Pending since {{pending}}</div>
+        </div>
+        <p>{{content.text}}</p>
+        {{#if hasImage}}
+        <div class="fileContainer colorbox" data-src='{{content.image.fileUrl}}'>
+            <img src="{{content.image.fileUrl}}" class='materialboxed'>
+        </div>
+        {{/if}}
+        <div class="answer">
+            <form class='answerForm' data-type='{{type}}' data-project='{{projectID}}'>
+                {{#if isType "Text"}}<!-- TASK IS A Text -->
+                    <div class="input-field">
+                        <input type="text" id='answer-{{_id}}' name='answer'>
+                        <label for="answer-{{_id}}">Enter your answer here</label>
+                    </div>
+                    <div class="input-field terms">
+                        <input type="checkbox" name='terms' id='terms-{{_id}}' class='termsChange'>
+                        <label for='terms-{{_id}}'>I have read and I agree to your <a href="/terms-and-conditions" target='_blank'>Terms & Conditions.</a></label>
+                    </div>
+                    <button type='submit' class='answer btn btnShadow'><span>Send {{> arrowRight}}</span></button>
+                {{else}}
+                    {{#if isType "Choice"}}<!-- TASK IS A CHOICE -->
+                        <ul class='choiceList'>
+                            {{#each content.choices}}
+                                <li>
+                                    <span class='indicator'>{{getIndex}}</span>
+                                    <p>
+                                      <input name="option-{{../_id}}" type="radio" id="option-{{../_id}}-{{getIndex}}" data-index='{{getIndex}}' class='inputChange' />
+                                      <label for="option-{{../_id}}-{{getIndex}}">{{choice}}</label>
+                                    </p>
+                                    {{#if choiceHasImg}}
+                                        <div class="imgContainer colorbox" data-src='{{image.fileUrl}}'>
+                                            <img src="{{image.fileUrl}}" id='{{image._id}}' >
+                                        </div>
+                                    {{/if}}
+                                </li>
+                            {{/each}}
+                        </ul>
+                        <div class="input-field terms">
+                            <input type="checkbox" name='terms' id='terms-{{_id}}' class='termsChange'>
+                            <label for='terms-{{_id}}'>I have read and I agree to your <a href="/terms-and-conditions" target='_blank'>Terms & Conditions.</a></label>
+                        </div>
+                        <button type='submit' class='answer btn btnShadow'><span>Send {{> arrowRight}}</span></button>
+                    {{else}}
+                        {{#if isType "Selection"}}<!-- TASK IS A SELECTION -->
+                            <ul class='choiceList'>
+                                {{#each content.choices}}
+                                    <li>
+                                        <span class='indicator'>{{getIndex}}</span>
+                                        <p>
+                                          <input name="option-{{../_id}}-{{getIndex}}" type="checkbox" id="option-{{../_id}}-{{getIndex}}" data-index='{{getIndex}}' class='inputChange' />
+                                          <label for="option-{{../_id}}-{{getIndex}}">{{choice}}</label>
+                                        </p>
+                                        {{#if choiceHasImg}}
+                                            <div class="imgContainer">
+                                                <a href="{{image.fileUrl}}" class='materialboxed'><img src="{{image.fileUrl}}" id='{{image._id}}' ></a>
+                                            </div>
+                                        {{/if}}
+                                    </li>
+                                {{/each}}
+                            </ul>
+                            <div class="input-field terms">
+                                <input type="checkbox" name='terms' id='terms-{{_id}}' class='termsChange'>
+                                <label for='terms-{{_id}}'>I have read and I agree to your <a href="/terms-and-conditions" target='_blank'>Terms & Conditions.</a></label>
+                            </div>
+                            <button type='submit' class='answer btn btnShadow'><span>Send {{> arrowRight}}</span></button>
+                        {{else}}
+                            {{#if isType "Upload"}}
+                                <div class="file-field input-field">
+                                  <div class="btn btnShadow">
+                                    <span>Select files {{> arrowRight}}</span>
+                                    <input type="file" multiple id='upload-{{_id}}' name='upload-{{_id}}'>
+                                  </div>
+                                  <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                                  </div>
+                                </div>
+                                <div class="input-field terms">
+                                    <input type="checkbox" name='terms' id='terms-{{_id}}' class='termsChange'>
+                                    <label for='terms-{{_id}}'>I have read and I agree to your <a href="/terms-and-conditions" target='_blank'>Terms & Conditions.</a></label>
+                                </div>
+                                <button type='submit' class='answer btn btnShadow'><span>Send {{> arrowRight}}</span></button>
+                                {{#if isDownloading}}
+                                    {{> uploading}}
+                                {{/if}}
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </form>
+        </div>
+    </div>
+
+</template>

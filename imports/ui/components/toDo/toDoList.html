@@ -1,0 +1,83 @@
+<template name='toDoList'>
+    <div class="homeToDo">
+        <h2>To do list </h2>
+        <div class="toDo">
+            <div class="questions">
+                <div class="blockedHeader">
+                    <h4>Questions ({{countTask}})</h4>
+                </div>
+
+                <ul>
+                    {{#each projects}}
+                        {{#each importantTasks}}
+                            <li class='{{_id}}'>
+                                <div class="date">{{makeSimpleDate created}}</div>
+                                <div class="important">Important</div>
+                                <div class='content'>{{content.text}}</div>
+                                <div class="bread">
+                                    <p>{{../title}}</p>
+                                </div>
+                                <div class="action">
+                                    <button class='btnShadow'>view {{> arrowRight}}</button>
+                                </div>
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                    {{#each projects}}
+                        {{#each tasks}}
+                            <li class='{{_id}}'>
+                                <div class="date">{{makeSimpleDate created}}</div>
+                                <div class='content'>{{content.text}}</div>
+                                <div class="bread">
+                                    <p>{{../title}}</p>
+                                </div>
+                                <div class="action">
+                                    <button class='btnShadow'>view {{> arrowRight}}</button>
+                                </div>
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                </ul>
+
+            </div>
+            <div class="approvals">
+                <div class="blockedHeader approvals">
+                    <h4>Approvals ({{countApprob}})</h4>
+                </div>
+
+                <ul>
+                    {{#each projects}}
+                        {{#each importantApproval}}
+                            <li class='{{_id}}'>
+                                <div class="date">{{makeSimpleDate created}}</div>
+                                <div class="important">Important</div>
+                                <div class='content'>{{content.title}}</div>
+                                <div class="bread">
+                                    <p>{{../title}}</p>
+                                </div>
+                                <div class="action">
+                                    <button class='btnShadow'>view {{> arrowRight}}</button>
+                                </div>
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                    {{#each projects}}
+                        {{#each approval}}
+                            <li class='{{_id}}'>
+                                <div class="date">{{makeSimpleDate created}}</div>
+                                <div class='content'>{{content.title}}</div>
+                                <div class="bread">
+                                    <p>{{../title}}</p>
+                                </div>
+                                <div class="action">
+                                    <button class='btnShadow'>view {{> arrowRight}}</button>
+                                </div>
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</template>
